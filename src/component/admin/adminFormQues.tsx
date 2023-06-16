@@ -22,19 +22,19 @@ export const FormAddQues: FC<{
 
   const [answer, setAnswer] = useState("");
 
-  const input = document.getElementById("valueoption1") as HTMLInputElement;
-  const inputAnswer = () => {
-    setAnswer(input.value);
+  const input = document.getElementById("valueoption1Add") as HTMLInputElement;
+  const inputAnswerAdd = () => {
+    setAnswer(input?.value);
   };
   console.log(answer);
   const schema = yup
     .object({
       quesContent: yup.string().min(3),
       answer: yup.string(),
-      option1: yup.string().min(1),
-      option2: yup.string().min(1),
-      option3: yup.string().min(1),
-      option4: yup.string().min(1),
+      option1: yup.string().notOneOf([yup.ref('option2')], "same value !").notOneOf([yup.ref('option3')], "same value !").notOneOf([yup.ref('option4')], "same value !").min(1),
+      option2: yup.string().notOneOf([yup.ref('option1')], "same value !").notOneOf([yup.ref('option3')], "same value !").notOneOf([yup.ref('option4')], "same value !").min(1),
+      option3: yup.string().notOneOf([yup.ref('option2')], "same value !").notOneOf([yup.ref('option1')], "same value !").notOneOf([yup.ref('option4')], "same value !").min(1),
+      option4: yup.string().notOneOf([yup.ref('option2')], "same value !").notOneOf([yup.ref('option3')], "same value !").notOneOf([yup.ref('option1')], "same value !").min(1),
     })
     .required();
   type FormData = yup.InferType<typeof schema>;
@@ -99,8 +99,8 @@ export const FormAddQues: FC<{
           Option 1:
         </label>
         <input
-          onKeyUp={inputAnswer}
-          id="valueoption1"
+          onKeyUp={inputAnswerAdd}
+          id="valueoption1Add"
           style={{
             marginLeft: "20px",
             padding: "2px 0 2px 5px",
@@ -180,19 +180,20 @@ export const FormEditQues: FC<{
 
   const [answer, setAnswer] = useState("");
 
-  const input = document.getElementById("valueoption1") as HTMLInputElement;
-  const inputAnswer = () => {
+  const input = document.getElementById("valueoption1Edit") as HTMLInputElement;
+  const inputAnswerEdit = () => {
     setAnswer(input.value);
   };
   console.log(answer);
+
   const schema = yup
     .object({
       quesContent: yup.string().min(4),
       answer: yup.string(),
-      option1: yup.string(),
-      option2: yup.string(),
-      option3: yup.string(),
-      option4: yup.string(),
+      option1: yup.string().notOneOf([yup.ref('option2')], "same value !").notOneOf([yup.ref('option3')], "same value !").notOneOf([yup.ref('option4')], "same value !"),
+      option2: yup.string().notOneOf([yup.ref('option1')], "same value !").notOneOf([yup.ref('option3')], "same value !").notOneOf([yup.ref('option4')], "same value !"),
+      option3: yup.string().notOneOf([yup.ref('option2')], "same value !").notOneOf([yup.ref('option1')], "same value !").notOneOf([yup.ref('option4')], "same value !"),
+      option4: yup.string().notOneOf([yup.ref('option2')], "same value !").notOneOf([yup.ref('option3')], "same value !").notOneOf([yup.ref('option1')], "same value !"),
     })
     .required();
   type FormData = yup.InferType<typeof schema>;
@@ -277,8 +278,8 @@ export const FormEditQues: FC<{
           Option 1:
         </label>
         <input
-          onKeyUp={inputAnswer}
-          id="valueoption1"
+          onKeyUp={inputAnswerEdit}
+          id="valueoption1Edit"
           style={{
             marginLeft: "20px",
             padding: "2px 0 2px 5px",

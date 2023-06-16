@@ -51,14 +51,8 @@ const AdminTestDetail = () => {
   //@ts-ignore
   const testDetail = useSelector((state) => state.test).testdetail;
 
-  const deleteQues = (quesId: number, testId: number) => {
-    axios
-      .delete(
-        "https://646cfa217b42c06c3b2c5ef7.mockapi.io/test/" +
-          testId +
-          "/question/" +
-          quesId
-      )
+  const deleteQues = ( testId: number, quesId: number) => {
+    axios.delete("https://646cfa217b42c06c3b2c5ef7.mockapi.io/test/" +testId +"/question/" +  quesId)
       .then(() => {
         window.location.reload();
       });

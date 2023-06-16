@@ -53,6 +53,7 @@ export const Test = () => {
   };
 
   console.log(resultChange);
+  
 
   async function redirectToResultPage() {
     //handle logic check user
@@ -74,9 +75,7 @@ export const Test = () => {
 
       await axios
         .post(
-          "https://646cf8c57b42c06c3b2c5cbe.mockapi.io/user/" +
-            getUserId +
-            "/mark",
+          "https://646cf8c57b42c06c3b2c5cbe.mockapi.io/user/" +  getUserId + "/mark",
           {
             userId: getUserId,
             testId: getTestId,
@@ -90,6 +89,13 @@ export const Test = () => {
 
       navigate(`/result?testId=${getTestId}`);
     }
+  }
+
+  const cancelQuiz=()=>{
+    let text = "Press ok to confirm cancel \n caution: your result quest is not saved";
+  if (confirm(text) == true) {
+    navigate(`/result?testId=${getTestId}`);
+  }
   }
 
   return (
@@ -130,7 +136,9 @@ export const Test = () => {
         )}
       </div>
 
-      <button onClick={redirectToResultPage}>Finish !</button>
+      
+      <button className="cancel mr-5" onClick={cancelQuiz}>Cancel</button>
+      <button className="submit"  onClick={redirectToResultPage}>Finish !</button>
       <br />
       <br />
       <br />
